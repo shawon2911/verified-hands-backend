@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const client = new MongoClient(process.env.MONGODB_URI!);
-const db = client.db();
+const db = client.db("verifiedhands");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
@@ -19,6 +19,16 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true, 
   },
+ user: {
+  additionalFields: {
+    role: {
+      type: "string",
+      required: false,
+      defaultValue: "employer",
+      input: true,   // client theke signup-e pathano allow kore
+    },
+  },
+},
   socialProviders: {
    
   },
