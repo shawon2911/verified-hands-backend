@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Worker } from "./worker.model";
 
-export const getAllWorkers = async (req: Request, res: Response) => {
+export const getAllWorkers = async (_req: Request, res: Response) => {
   try {
     const workers = await Worker.find({});
     res.status(200).json(workers);
