@@ -9,16 +9,19 @@ const client = new MongoClient(process.env.MONGODB_URI!);
 const db = client.db("verifiedhands");
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    client: client,
-  }),
+  database: mongodbAdapter(db, { client: client }),
   secret: process.env.BETTER_AUTH_SECRET!,
   baseURL: process.env.BASE_URL || "http://localhost:5000",
   trustedOrigins: [
     process.env.FRONTEND_URL || "http://localhost:5173",
-    "https://verifiedhand.vercel.app" 
-     
   ],
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+      partitioned: true, // Chrome-এর নতুন requirement
+    },
+  },
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
@@ -33,5 +36,4 @@ export const auth = betterAuth({
       },
     },
   },
- 
 });

@@ -17,11 +17,9 @@ const app = express();
 const PORT = parseInt(process.env.PORT || "5000", 10);
 
 // ✅ ২. CORS মিডলওয়্যার - Better Auth এর আগে
+// index.ts
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL || "http://localhost:5173",
-    "https://verified-hands-client.vercel.app" // Vercel URL যোগ করুন
-  ],
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
