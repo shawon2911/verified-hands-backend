@@ -9,7 +9,6 @@ REST API powering **VerifiedHands**, a verified local skilled-worker marketplace
 [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![Better Auth](https://img.shields.io/badge/Auth-Better--Auth-1F8A70?style=flat)](https://www.better-auth.com/)
 
-[Frontend Repo](#) 
 
 </div>
 
