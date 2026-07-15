@@ -33,11 +33,5 @@ export const auth = betterAuth({
       },
     },
   },
-  session: {
-    cookie: {
-      sameSite: "lax",
-      secure: true,         
-      httpOnly: true,
-    },
-  },
+ 
 });
