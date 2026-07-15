@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-// import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
@@ -15,49 +14,30 @@ export const auth = betterAuth({
   }),
   secret: process.env.BETTER_AUTH_SECRET!,
   baseURL: process.env.BASE_URL || "http://localhost:5000",
+  trustedOrigins: [
+    process.env.FRONTEND_URL || "http://localhost:5173",
+    "https://verifiedhand.vercel.app" 
+     
+  ],
   emailAndPassword: {
     enabled: true,
-    autoSignIn: true, 
+    autoSignIn: true,
   },
- user: {
-  additionalFields: {
-    role: {
-      type: "string",
-      required: false,
-      defaultValue: "employer",
-      input: true,   // client theke signup-e pathano allow kore
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "employer",
+        input: true,
+      },
     },
   },
-},
-  socialProviders: {
-   
+  session: {
+    cookie: {
+      sameSite: "lax",
+      secure: true,         
+      httpOnly: true,
+    },
   },
-  trustedOrigins: [process.env.FRONTEND_URL || "http://localhost:5173"],
 });
-
-
-// import { betterAuth } from "better-auth";
-// import { mongodbAdapter } from "better-auth/adapters/mongodb";
-// import mongoose from "mongoose";
-// import dotenv from "dotenv";
-
-// dotenv.config();
-
-// // Mongoose-এর ডিফল্ট ড্রাইভার কানেকশন রেফারেন্স ব্যবহার করা নিরাপদ
-// export const getAuth = () => {
-//   const db = mongoose.connection.db;
-//   if (!db) {
-//     throw new Error("Database not connected yet!");
-//   }
-
-//   return betterAuth({
-//     database: mongodbAdapter(db),
-//     secret: process.env.BETTER_AUTH_SECRET!,
-//     baseURL: process.env.BASE_URL || "http://localhost:5000",
-//     emailAndPassword: {
-//       enabled: true,
-//       autoSignIn: true,
-//     },
-//     trustedOrigins: [process.env.FRONTEND_URL || "http://localhost:5173"],
-//   });
-// };
