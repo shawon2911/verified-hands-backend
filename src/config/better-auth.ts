@@ -22,6 +22,7 @@ export const auth = betterAuth({
       ? {
           sameSite: "none",
           secure: true,
+          partitioned: true,
         }
       : {
           sameSite: "lax",
