@@ -8,7 +8,7 @@ dotenv.config();
 const client = new MongoClient(process.env.MONGODB_URI!);
 const db = client.db("verifiedhands");
 
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.IS_PROD === "true";
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client: client }),
