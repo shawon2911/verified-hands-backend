@@ -8,6 +8,8 @@ dotenv.config();
 const client = new MongoClient(process.env.MONGODB_URI!);
 const db = client.db("verifiedhands");
 
+const isProd = process.env.NODE_ENV === "production";
+
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client: client }),
   secret: process.env.BETTER_AUTH_SECRET!,
@@ -16,11 +18,15 @@ export const auth = betterAuth({
     process.env.FRONTEND_URL || "http://localhost:5173",
   ],
   advanced: {
-    defaultCookieAttributes: {
-      sameSite: "none",
-      secure: true,
-      partitioned: true, // Chrome-এর নতুন requirement
-    },
+    defaultCookieAttributes: isProd
+      ? {
+          sameSite: "none",
+          secure: true,
+        }
+      : {
+          sameSite: "lax",
+          secure: false,
+        },
   },
   emailAndPassword: {
     enabled: true,
